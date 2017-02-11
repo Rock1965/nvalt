@@ -435,11 +435,14 @@ void outletObjectAwoke(id sender) {
 	OSStatus err = noErr;
 	NotationController *newNotation = nil;
 	NSData *aliasData = [prefsController aliasDataForDefaultDirectory];
+
+    [window setTitleVisibility:NSWindowTitleHidden];
+    [window setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameAqua]];
 	
 	NSString *subMessage = @"";
 	
 	//if the option key is depressed, go straight to picking a new notes folder location
-	if (kCGEventFlagMaskAlternate == (CGEventSourceFlagsState(kCGEventSourceStateCombinedSessionState) & NSDeviceIndependentModifierFlagsMask)) {
+	if (kCGEventFlagMaskAlternate == (CGEventSourceFlagsState(kCGEventSourceStateCombinedSessionState) & NSEventModifierFlagDeviceIndependentFlagsMask)) {
 		goto showOpenPanel;
 	}
 	
@@ -611,7 +614,11 @@ terminateApp:
 }
 
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
-	return [itemIdentifier isEqualToString:@"DualField"] ? dualFieldItem : nil;
+    if ([itemIdentifier isEqualToString:@"DualField"]) {
+        return dualFieldItem;
+    }
+    NSToolbarItem *item = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
+    return [item autorelease];
 }
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)theToolbar {
@@ -619,7 +626,9 @@ terminateApp:
 }
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)theToolbar {
-	return [NSArray arrayWithObject:@"DualField"];
+    return @[NSToolbarFlexibleSpaceItemIdentifier,
+             @"DualField",
+             NSToolbarFlexibleSpaceItemIdentifier];
 }
 
 
