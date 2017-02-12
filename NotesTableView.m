@@ -278,7 +278,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 	if (!cachedCell) cachedCell = [[col dataCell] retain];
 	[col setDataCell: horiz ? [[[UnifiedCell alloc] init] autorelease] : cachedCell];
 	
-	NSFont *font = [NSFont systemFontOfSize:[globalPrefs tableFontSize]];
+	NSFont *font = [NSFont monospacedDigitSystemFontOfSize:[globalPrefs tableFontSize] weight:NSFontWeightRegular];
 	NSUInteger i;
 	for (i=0; i<[allColumns count]; i++) {
 		[[[allColumns objectAtIndex:i] dataCell] setFont:font];

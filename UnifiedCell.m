@@ -123,13 +123,14 @@
 	NSControlTint tint = [NSColor currentControlTint];
 	
 	if (!color || lastTint != tint) {
-		if (tint == NSBlueControlTint) {
-			color = [NSColor colorWithCalibratedRed:0.31 green:.494 blue:0.765 alpha:1.0];
-		} else if (tint == NSGraphiteControlTint) {
-			color = [NSColor colorWithCalibratedRed:0.498 green:0.525 blue:0.573 alpha:1.0];
-		} else {
-			color = [NSColor grayColor];
-		}
+//        if (tint == NSBlueControlTint) {
+//            color = [NSColor colorWithCalibratedRed:0.31 green:.494 blue:0.765 alpha:1.0];
+//        } else if (tint == NSGraphiteControlTint) {
+//            color = [NSColor colorWithCalibratedRed:0.498 green:0.525 blue:0.573 alpha:1.0];
+//        } else {
+//            color = [NSColor grayColor];
+//        }
+        color = [NSColor controlTextColor];
 		lastTint = tint;
 		[color retain];
 	}
