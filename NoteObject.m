@@ -1064,9 +1064,8 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 				if (onRight) {
 					[images addObject:img];
 				} else {
-//					[img compositeToPoint:nextBoxPoint operation:NSCompositeSourceOver];
-                    
-                    [img drawInRect:dRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0f respectFlipped:YES hints:nil];
+
+                    [img drawInRect:dRect fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0f respectFlipped:YES hints:nil];
 					nextBoxPoint.x += [img size].width + 4.0;
 				}
 			} else {
@@ -1084,8 +1083,7 @@ force_inline id unifiedCellForNote(NotesTableView *tv, NoteObject *note, NSInteg
 				nextBoxPoint.x -= [img size].width + 4.0;
                 dRect.origin=nextBoxPoint;
                 dRect.size=[img size];
-//				[img compositeToPoint:nextBoxPoint operation:NSCompositeSourceOver];
-              [img drawInRect:dRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0f respectFlipped:YES hints:nil];
+              [img drawInRect:dRect fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0f respectFlipped:YES hints:nil];
 			}
 		}
 	} else {

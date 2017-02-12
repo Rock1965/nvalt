@@ -162,7 +162,7 @@ if ([selectorString isEqualToString:SEL_STR(setNoteBodyFont:sender:)]) {
 - (BOOL)becomeFirstResponder {
 	[notesTableView setShouldUseSecondaryHighlightColor:YES];
 
-	if ([[[self window] currentEvent] type] == NSKeyDown && [[[self window] currentEvent] firstCharacter] == '\t') {
+	if ([[[self window] currentEvent] type] == NSEventTypeKeyDown && [[[self window] currentEvent] firstCharacter] == '\t') {
 		//"indicate" the current cursor/selection when moving focus to this field, but only if the user did not click here
 		NSRange range = [self selectedRange];
 		if (range.length) {
@@ -771,10 +771,10 @@ copyRTFType:
 //    [[NSApp delegate] resetModTimers];
     //    [[NSNotificationCenter defaultCenter] postNotificationName:@"ModTimersShouldReset" object:nil];
     NSUInteger modFlags=[anEvent modifierFlags];
-    if((modFlags&NSControlKeyMask)||(modFlags&NSAlternateKeyMask)){
+    if((modFlags&NSEventModifierFlagControl)||(modFlags&NSEventModifierFlagOption)){
          [[NSNotificationCenter defaultCenter] postNotificationName:@"ModTimersShouldReset" object:nil];
     }
-	if (((modFlags & NSCommandKeyMask)>0)&&([[self window]firstResponder]==self)) {
+	if (((modFlags & NSEventModifierFlagCommand)>0)&&([[self window]firstResponder]==self)) {
 		
 		unichar keyChar = [anEvent firstCharacterIgnoringModifiers];
 		if (keyChar == NSCarriageReturnCharacter || keyChar == NSNewlineCharacter || keyChar == NSEnterCharacter) {
@@ -785,8 +785,8 @@ copyRTFType:
 			if ([aLink isKindOfClass:[NSURL class]]) {
 				[self clickedOnLink:aLink atIndex:charIndex];
 				return YES;
-			}else if (!((modFlags&NSControlKeyMask)||(modFlags&NSAlternateKeyMask))){
-                if (modFlags&NSShiftKeyMask) {
+			}else if (!((modFlags&NSEventModifierFlagControl)||(modFlags&NSEventModifierFlagOption))){
+                if (modFlags&NSEventModifierFlagShift) {
                     [self moveToBeginningOfParagraph:self]; 
                     [self moveBackward:self];       
                 }else{            
@@ -844,7 +844,7 @@ copyRTFType:
 
 - (BOOL)jumpToRenaming {
 	NSEvent *event = [[self window] currentEvent];
-	if ([event type] == NSKeyDown && ![event isARepeat] && NSEqualRanges([self selectedRange], NSMakeRange(0, 0))) {
+	if ([event type] == NSEventTypeKeyDown && ![event isARepeat] && NSEqualRanges([self selectedRange], NSMakeRange(0, 0))) {
 		//command-left at the beginning of the note--jump to editing the title!
 		[(AppController *)[NSApp delegate] renameNote:nil];
 		NSText *editor = [notesTableView currentEditor];
@@ -1270,7 +1270,7 @@ copyRTFType:
 	NSEvent *currentEvent = [[self window] currentEvent];
 //    NSLog(@"clicked:%@",[currentEvent description]);
 	
-	if (![prefsController URLsAreClickable] && [currentEvent modifierFlags] & NSCommandKeyMask) {
+	if (![prefsController URLsAreClickable] && [currentEvent modifierFlags] & NSEventModifierFlagCommand) {
 		
 		[self highlightLinkAtIndex:charIndex];
 		
@@ -1282,7 +1282,7 @@ copyRTFType:
 	
 	if ([aLink isKindOfClass:[NSURL class]] && [[aLink scheme] isEqualToString:@"nvalt"]) {
         NSUInteger flags=[currentEvent modifierFlags];
-        if (((flags&NSDeviceIndependentModifierFlagsMask)==(flags&NSCommandKeyMask))&&((flags&NSDeviceIndependentModifierFlagsMask)>0)) {
+        if (((flags&NSEventModifierFlagDeviceIndependentFlagsMask)==(flags&NSEventModifierFlagCommand))&&((flags&NSEventModifierFlagDeviceIndependentFlagsMask)>0)) {
             NSString *newURLString=[[aLink lastPathComponent]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             NSString *txtString=[[NSString stringWithFormat:@"[[%@]]",[aLink lastPathComponent]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             newURLString=[NSString stringWithFormat:@"nvalt://make/?title=%@&txt=%@",newURLString,txtString];
@@ -1689,21 +1689,12 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 #if PASSWORD_SUGGESTIONS
         theMenuItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"New Password...", "new password command in the edit menu")
 												 action:@selector(showGeneratedPasswords:) keyEquivalent:@"\\"];
-        [theMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask];
+        [theMenuItem setKeyEquivalentModifierMask:NSEventModifierFlagCommand];
         [theMenuItem setTarget:nil]; // First Responder being the current Link Editor
         [editMenu addItem:theMenuItem];
         [theMenuItem release];
 #endif
         
-//        theMenuItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Insert New Password", "insert new password command in the edit menu")
-//												 action:@selector(insertGeneratedPassword:) keyEquivalent:@"\\"];
-//#if PASSWORD_SUGGESTIONS
-//        [theMenuItem setAlternate:YES];
-//#endif
-//        [theMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask|NSAlternateKeyMask];
-//        [theMenuItem setTarget:nil]; // First Responder being the current Link Editor
-//        [editMenu addItem:theMenuItem];
-//        [theMenuItem release];
     }
 
 }

@@ -140,7 +140,7 @@
 		[controlView setNeedsDisplay:YES];
 		
 		NSEventType type = [theEvent type];
-		if (type == NSLeftMouseUp || type == NSRightMouseUp) {
+		if (type == NSEventTypeLeftMouseUp || type == NSEventTypeRightMouseUp) {
 			if (BUTTON_PRESSED == snapbackButtonState) {
 				[controlView snapback:nil];
 			} else if (BUTTON_PRESSED == clearButtonState) {
@@ -148,7 +148,7 @@
 			}
 			break;
 		}
-		theEvent = [[controlView window] nextEventMatchingMask: NSLeftMouseUpMask | NSLeftMouseDraggedMask | NSRightMouseUpMask | NSRightMouseDraggedMask];
+		theEvent = [[controlView window] nextEventMatchingMask: NSEventMaskLeftMouseUp | NSEventMaskLeftMouseDragged | NSEventMaskRightMouseUp | NSEventMaskRightMouseDragged];
 	} while (1);
 	
 	return YES;

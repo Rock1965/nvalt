@@ -715,7 +715,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 	
 	NSMenuItem *noteLinkItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Copy URL",@"contextual menu item title to copy urls")
 														  action:@selector(copyNoteLink:) keyEquivalent:@"c"];
-	[noteLinkItem setKeyEquivalentModifierMask:NSCommandKeyMask|NSAlternateKeyMask];
+	[noteLinkItem setKeyEquivalentModifierMask:NSEventModifierFlagCommand|NSEventModifierFlagOption];
 	[noteLinkItem setTarget:target];
 	[theMenu addItem:[noteLinkItem autorelease]];
 	
@@ -792,7 +792,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 	}
 	
 	NSUInteger flags = [event modifierFlags];
-    if (flags & NSAlternateKeyMask) { // option click starts a drag 
+    if (flags & NSEventModifierFlagOption) { // option click starts a drag 
 		
 		NSPoint mousePoint = [self convertPoint:[event locationInWindow] fromView:nil];
         NSPoint dragPoint = NSMakePoint(mousePoint.x - 16, mousePoint.y + 16); 
@@ -869,7 +869,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 	
 	NSUInteger modifiers = [theEvent modifierFlags];
 	
-	if (modifiers & NSCommandKeyMask) {
+	if (modifiers & NSEventModifierFlagCommand) {
 		//replicating up/down with option key
 		if (UPCHAR(keyChar)) {
 			[self selectRowAndScroll:0];
@@ -880,7 +880,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 		}
 	}
 	
-	if (modifiers & NSShiftKeyMask) {
+	if (modifiers & NSEventModifierFlagShift) {
 		if (DOWNCHAR(keyChar) || UPCHAR(keyChar)) {
 			
 			NSIndexSet *indexes = [self selectedRowIndexes];
@@ -936,11 +936,11 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"ModTimersShouldReset" object:nil];
 	NSUInteger mods = [theEvent modifierFlags];
 	
-	BOOL isControlKeyPressed = (mods & NSControlKeyMask) != 0 && [userDefaults boolForKey: @"UseCtrlForSwitchingNotes"];
-	BOOL isCommandKeyPressed = (mods & NSCommandKeyMask) != 0;
+	BOOL isControlKeyPressed = (mods & NSEventModifierFlagControl) != 0 && [userDefaults boolForKey: @"UseCtrlForSwitchingNotes"];
+	BOOL isCommandKeyPressed = (mods & NSEventModifierFlagCommand) != 0;
 
 	// Also catch Ctrl-J/-K to match the shortcuts of other apps
-	if ((isControlKeyPressed || isCommandKeyPressed) && ((mods & NSShiftKeyMask) == 0)) {
+	if ((isControlKeyPressed || isCommandKeyPressed) && ((mods & NSEventModifierFlagShift) == 0)) {
 		
 		unichar keyChar = ' '; 
 		if (isCommandKeyPressed) {
@@ -952,7 +952,7 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 		
 		// Handle J and K for both Control and Command
 		if ( keyChar == kNext_Tag || keyChar == kPrev_Tag ) {
-			if (mods & NSAlternateKeyMask) {
+			if (mods & NSEventModifierFlagOption) {
 				[self selectRowAndScroll:((keyChar == kNext_Tag) ? [self numberOfRows] - 1 :  0)];
 			} else {
 				[self _incrementNoteSelectionByTag:keyChar];
@@ -1018,7 +1018,7 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 	if (command == @selector(moveToEndOfLine:) || command == @selector(moveToRightEndOfLine:)) {
 		
 		NSEvent *event = [[self window] currentEvent];
-		if ([event type] == NSKeyDown && ![event isARepeat] && 
+		if ([event type] == NSEventTypeKeyDown && ![event isARepeat] && 
 			NSEqualRanges([aTextView selectedRange], NSMakeRange([[aTextView string] length], 0))) {
 			//command-right at the end of the title--jump to editing the note!
 			[[self window] makeFirstResponder:[self nextValidKeyView]];
@@ -1109,7 +1109,7 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 		return NO;
 	
 	NSEventType type = [event type];
-	if (type == NSLeftMouseDown || type == NSLeftMouseUp) {
+	if (type == NSEventTypeLeftMouseDown || type == NSEventTypeLeftMouseUp) {
 		
 		NSPoint p = [self convertPoint:[event locationInWindow] fromView:nil];
 		
@@ -1119,12 +1119,12 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 		
 		return [self mouse:p inRect:tagCellRect];
 		
-	} else if (type == NSKeyDown) {
+	} else if (type == NSEventTypeKeyDown) {
 		
 		//activated either using the shortcut or using tab, when there was already an editor, and the last event invoked rename
 		//checking for the keyboard equivalent here is redundant in theory
 		
-		return ([event firstCharacter] == 't' && ([event modifierFlags] & (NSShiftKeyMask | NSCommandKeyMask)) != 0) || 
+		return ([event firstCharacter] == 't' && ([event modifierFlags] & (NSEventModifierFlagShift | NSEventModifierFlagCommand)) != 0) || 
 		([event firstCharacter] == NSTabCharacter && !lastEventActivatedTagEdit && [self currentEditor]);
 	}
 	

@@ -355,11 +355,11 @@ static inline CGFloat fMAX(CGFloat a,CGFloat b) {
 // This pair of methods allows you to move the dividers for background windows while holding down
 // the command key, without bringing the window to the foreground.
 - (BOOL)acceptsFirstMouse:(NSEvent*)theEvent {
-	return ([theEvent modifierFlags]&NSCommandKeyMask)==0;
+	return ([theEvent modifierFlags]&NSEventModifierFlagCommand)==0;
 }
 
 - (BOOL)shouldDelayWindowOrderingForEvent:(NSEvent*)theEvent {
-	return ([theEvent modifierFlags]&NSCommandKeyMask)!=0;
+	return ([theEvent modifierFlags]&NSEventModifierFlagCommand)!=0;
 }
 
 // These 3 methods handle view background colors and opacity. The default is the window background.
@@ -690,7 +690,7 @@ static inline CGFloat fMAX(CGFloat a,CGFloat b) {
                 // Now we loop handling mouse events until we get a mouse up event, while showing the drag cursor.
 				[[RBSplitView cursor:RBSVDragCursor] push];
 				[self RB___setDragging:YES];
-				while ((theEvent = [NSApp nextEventMatchingMask:NSLeftMouseDownMask|NSLeftMouseDraggedMask|NSLeftMouseUpMask untilDate:[NSDate distantFuture] inMode:NSEventTrackingRunLoopMode dequeue:YES])&&([theEvent type]!=NSLeftMouseUp)) {
+				while ((theEvent = [NSApp nextEventMatchingMask:NSEventMaskLeftMouseDown|NSEventMaskLeftMouseDragged|NSEventMaskLeftMouseUp untilDate:[NSDate distantFuture] inMode:NSEventTrackingRunLoopMode dequeue:YES])&&([theEvent type]!=NSEventTypeLeftMouseUp)) {
                     // Set up a local autorelease pool for the loop to prevent buildup of temporary objects.
 					NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 					NSDisableScreenUpdates();
@@ -827,7 +827,7 @@ static inline CGFloat fMAX(CGFloat a,CGFloat b) {
 		NSColor* bg = [self background];
 		if (bg) {
 			[bg set];
-			NSRectFillUsingOperation(rect,NSCompositeSourceOver);
+			NSRectFillUsingOperation(rect,NSCompositingOperationSourceOver);
 		}
 	}
     // Center the image, if there is one.
@@ -844,7 +844,7 @@ static inline CGFloat fMAX(CGFloat a,CGFloat b) {
 	}
     // Draw the image if the delegate returned a non-empty rect.
 	if (!NSIsEmptyRect(dorect)) {
-		[anImage drawInRect:dorect fromRect:imrect operation:NSCompositeSourceOver fraction:1.0 respectFlipped:YES hints:nil];
+		[anImage drawInRect:dorect fromRect:imrect operation:NSCompositingOperationSourceOver fraction:1.0 respectFlipped:YES hints:nil];
 	}
 }
 
@@ -1306,7 +1306,7 @@ static inline CGFloat fMAX(CGFloat a,CGFloat b) {
 // This method is called by the mouseDown:method for every tracking event. It's separated out as it used
 // to be called from the Interface Builder plugin in a slightly different way, and also if you have a
 // separate drag view designated by the delegate. You'll never need to call this directly.
-// theEvent is the event (which should be a NSLeftMouseDragged event).
+// theEvent is the event (which should be a NSEventMaskLeftMouseDragged event).
 // where is the point where the original mouse-down happened, corrected for the current divider position,
 // and expressed in local coordinates.
 // base is an offset (x,y) applied to the mouse location (usually will be zero)

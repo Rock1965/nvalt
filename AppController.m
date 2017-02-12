@@ -1320,7 +1320,7 @@ terminateApp:
 		if (command == @selector(noop:)) {
 			//control-U is not set to anything by default, so we have to check the event itself for noops
 			NSEvent *event = [window currentEvent];
-			if ([event modifierFlags] & NSControlKeyMask) {
+			if ([event modifierFlags] & NSEventModifierFlagControl) {
 				if ([event firstCharacterIgnoringModifiers] == 'u') {
 					//in 1.1.1 this deleted the entire line, like tcsh. this is more in-line with bash
 					[aTextView deleteToBeginningOfLine:nil];
@@ -1520,9 +1520,9 @@ terminateApp:
     
 	NSEventType type = [event type];
 	//do not allow drag-selections unless a modifier is pressed
-	if (type == NSLeftMouseDragged || type == NSLeftMouseDown) {
+	if (type == NSEventTypeLeftMouseDragged || type == NSEventTypeLeftMouseDown) {
 		NSUInteger flags = [event modifierFlags];
-		if ((flags & NSShiftKeyMask) || (flags & NSCommandKeyMask)) {
+		if ((flags & NSEventModifierFlagShift) || (flags & NSEventModifierFlagCommand)) {
 			allowMultipleSelection = YES;
 		}
 	}
@@ -1557,7 +1557,7 @@ terminateApp:
     }
     self.isEditing = NO;
 	NSEventType type = [[window currentEvent] type];
-	if (type != NSKeyDown && type != NSKeyUp) {
+	if (type != NSEventTypeKeyDown && type != NSEventTypeKeyUp) {
 		[self performSelector:@selector(setTableAllowsMultipleSelection) withObject:nil afterDelay:0];
 	}
 	
@@ -3023,7 +3023,7 @@ terminateApp:
     
     - (void)popWordCount:(BOOL)showIt{
         NSUInteger curEv=[[NSApp currentEvent] type];
-        if ((curEv==NSFlagsChanged)||(curEv==NSMouseMoved)||(curEv==NSMouseEntered)||(curEv==NSMouseExited)||(curEv==NSScrollWheel)){
+        if ((curEv==NSEventTypeFlagsChanged)||(curEv==NSEventTypeMouseMoved)||(curEv==NSEventTypeMouseEntered)||(curEv==NSEventTypeMouseExited)||(curEv==NSEventTypeScrollWheel)){
             if (showIt) {
                 if (([wordCounter isHidden])&&([prefsController showWordCount])) {
                     [self updateWordCount:YES];
@@ -3063,7 +3063,7 @@ terminateApp:
     - (void)flagsChanged:(NSEvent *)theEvent{
         if ((ModFlagger==0)&&(popped==0)) {            
             NSUInteger flags=[theEvent modifierFlags];
-            if (((flags&NSDeviceIndependentModifierFlagsMask)==(flags&NSAlternateKeyMask))&&((flags&NSDeviceIndependentModifierFlagsMask)>0)) { //only option key down
+            if (((flags&NSEventModifierFlagDeviceIndependentFlagsMask)==(flags&NSEventModifierFlagOption))&&((flags&NSEventModifierFlagDeviceIndependentFlagsMask)>0)) { //only option key down
                 ModFlagger = 1;
                 modifierTimer = [[NSTimer scheduledTimerWithTimeInterval:1.2
                                                                   target:self
@@ -3071,7 +3071,7 @@ terminateApp:
                                                                 userInfo:@"option"
                                                                  repeats:NO] retain];
                 return;
-            }else if (((flags&NSDeviceIndependentModifierFlagsMask)==(flags&NSControlKeyMask))&&((flags&NSDeviceIndependentModifierFlagsMask)>0)) { //only ctrl key is down
+            }else if (((flags&NSEventModifierFlagDeviceIndependentFlagsMask)==(flags&NSEventModifierFlagControl))&&((flags&NSEventModifierFlagDeviceIndependentFlagsMask)>0)) { //only ctrl key is down
                 ModFlagger = 2;
                 modifierTimer = [[NSTimer scheduledTimerWithTimeInterval:1.2
                                                                   target:self
@@ -3125,7 +3125,7 @@ terminateApp:
     
     - (void)popPreview:(BOOL)showIt{
         NSUInteger curEv=[[NSApp currentEvent] type];
-        if((curEv==NSFlagsChanged)||(curEv==NSMouseMoved)||(curEv==NSMouseEntered)||(curEv==NSMouseExited)||(curEv==NSScrollWheel)){
+        if((curEv==NSEventTypeFlagsChanged)||(curEv==NSEventTypeMouseMoved)||(curEv==NSEventTypeMouseEntered)||(curEv==NSEventTypeMouseExited)||(curEv==NSEventTypeScrollWheel)){
             if ([previewToggler state]==0) {
                 if (showIt) {
                     if (![previewController previewIsVisible]) {

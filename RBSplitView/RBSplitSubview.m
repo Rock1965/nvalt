@@ -349,7 +349,7 @@ static animationData* currentAnimation = NULL;
 	NSColor* bg = [sv background];
 	if (bg) {
 		[bg set];
-		NSRectFillUsingOperation(rect,NSCompositeSourceOver);
+		NSRectFillUsingOperation(rect,NSCompositingOperationSourceOver);
 	}
 	id del = [sv delegate];
 	if ([del respondsToSelector:@selector(splitView:willDrawSubview:inRect:)]) {
@@ -497,7 +497,7 @@ static animationData* currentAnimation = NULL;
 		BOOL ishor = [sv isHorizontal];
 		[sv RB___setDragging:YES];
         // Loop while the button is down.
-		while ((theEvent = [NSApp nextEventMatchingMask:NSLeftMouseDownMask|NSLeftMouseDraggedMask|NSLeftMouseUpMask untilDate:[NSDate distantFuture] inMode:NSEventTrackingRunLoopMode dequeue:YES])&&([theEvent type]!=NSLeftMouseUp)) {
+		while ((theEvent = [NSApp nextEventMatchingMask:NSEventMaskLeftMouseDown|NSEventMaskLeftMouseDragged|NSEventMaskLeftMouseUp untilDate:[NSDate distantFuture] inMode:NSEventTrackingRunLoopMode dequeue:YES])&&([theEvent type]!=NSEventTypeLeftMouseUp)) {
             // Set up a local autorelease pool for the loop to prevent buildup of temporary objects.
 			NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 			NSDisableScreenUpdates();
@@ -528,7 +528,7 @@ static animationData* currentAnimation = NULL;
 		where =  [window convertBaseToScreen:where];
 		NSPoint origin = [window frame].origin;
         // Now we loop handling mouse events until we get a mouse up event.
-		while ((theEvent = [NSApp nextEventMatchingMask:NSLeftMouseDownMask|NSLeftMouseDraggedMask|NSLeftMouseUpMask untilDate:[NSDate distantFuture] inMode:NSEventTrackingRunLoopMode dequeue:YES])&&([theEvent type]!=NSLeftMouseUp)) {
+		while ((theEvent = [NSApp nextEventMatchingMask:NSEventMaskLeftMouseDown|NSEventMaskLeftMouseDragged|NSEventMaskLeftMouseUp untilDate:[NSDate distantFuture] inMode:NSEventTrackingRunLoopMode dequeue:YES])&&([theEvent type]!=NSEventTypeLeftMouseUp)) {
             // Set up a local autorelease pool for the loop to prevent buildup of temporary objects.
 			NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 			NSPoint now = [window convertBaseToScreen:[theEvent locationInWindow]];

@@ -46,7 +46,7 @@ static NSRect itemRect;
 {
     self.sbIconType=SelectedMenuIcon;
     NSUInteger flags=[event modifierFlags];   
-    if (((flags&NSDeviceIndependentModifierFlagsMask)==(flags&NSControlKeyMask))&&((flags&NSDeviceIndependentModifierFlagsMask)>0)) {
+    if (((flags&NSDeviceIndependentModifierFlagsMask)==(flags&NSEventModifierFlagControl))&&((flags&NSDeviceIndependentModifierFlagsMask)>0)) {
         [[NSNotificationCenter defaultCenter]postNotificationName:@"StatusItemMenuShouldDrop" object:nil];
         self.sbIconType=DarkMenuIcon;
     }else{

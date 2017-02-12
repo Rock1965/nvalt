@@ -41,8 +41,8 @@
 
 	NSEventType eventType = [[[controlView window] currentEvent] type];
 	//shouldn't the cell already know when it's being pressed?
-	BOOL isHighlighted = (isHovering && (eventType == NSLeftMouseDown || eventType == NSRightMouseDown ||
-										 eventType == NSLeftMouseDragged || eventType == NSRightMouseDragged));
+	BOOL isHighlighted = (isHovering && (eventType == NSEventTypeLeftMouseDown || eventType == NSEventTypeRightMouseDown ||
+										 eventType == NSEventTypeLeftMouseDragged || eventType == NSEventTypeRightMouseDragged));
 	
 	if (isHighlighted) {
 		[[NSImage imageNamed:@"TBMousedownBG"] drawCenteredInRect:cellFrame];
@@ -71,7 +71,7 @@
 	}
 	
 	NSRect imgRect = NSMakeRect(0, 0, [img size].width, [img size].height);
-	[img drawInRect:imgRect fromRect:NSZeroRect operation:NSCompositeSourceOver 
+	[img drawInRect:imgRect fromRect:NSZeroRect operation:NSCompositingOperationSourceOver 
 		   fraction:isHovering ? 1.0 : ([[controlView window] isMainWindow] ? 0.83 : 0.5) respectFlipped:YES hints:nil];
 
 	
@@ -141,9 +141,9 @@
 		[buttonCell setTarget:[[self cell] target]];
 		[self setCell:buttonCell];
 		
-		[buttonCell setControlSize:NSSmallControlSize];
+		[buttonCell setControlSize:NSControlSizeSmall];
 		[buttonCell setPullsDown:flag];
-		[self setFont:[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]]];
+		[self setFont:[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSControlSizeSmall]]];
 		[self setShowsBorderOnlyWhileMouseInside:YES];
 		[self setBordered:NO];
 		[self setPullsDown:flag];
@@ -214,11 +214,11 @@
 		return;
 	}
     while (1) {
-        theEvent = [[self window] nextEventMatchingMask: NSLeftMouseUpMask | NSLeftMouseDraggedMask | 
-					NSRightMouseUpMask | NSRightMouseDragged];
+        theEvent = [[self window] nextEventMatchingMask: NSEventMaskLeftMouseUp | NSEventMaskLeftMouseDragged | 
+					NSEventMaskRightMouseUp | NSEventTypeRightMouseDragged];
 		NSEventType type = [theEvent type];
 		
-		if (type == NSLeftMouseUp || type == NSRightMouseUp) {
+		if (type == NSEventTypeLeftMouseUp || type == NSEventTypeRightMouseUp) {
 			
 			if ([self mouse:[self convertPoint:[theEvent locationInWindow] fromView:nil] inRect:[self bounds]]) {
 				[[self cell] performClickWithFrame:[self bounds] inView:self];

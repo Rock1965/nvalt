@@ -1553,9 +1553,9 @@ bail:
 - (void)regeneratePreviewsForColumn:(NSTableColumn*)col visibleFilteredRows:(NSRange)rows forceUpdate:(BOOL)force {
     float width = [col width];
     if(IsLionOrLater){
-        width-=[NSScroller scrollerWidthForControlSize:NSRegularControlSize scrollerStyle:[NSScroller preferredScrollerStyle]];
+        width-=[NSScroller scrollerWidthForControlSize:NSControlSizeRegular scrollerStyle:[NSScroller preferredScrollerStyle]];
     }else{
-    width-=[NSScroller scrollerWidthForControlSize:NSRegularControlSize];
+    width-=[NSScroller scrollerWidthForControlSize:NSControlSizeRegular];
     }
 	
 	if (force || roundf(width) != roundf(titleColumnWidth)) {

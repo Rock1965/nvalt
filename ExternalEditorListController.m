@@ -377,7 +377,7 @@ errorReturn:
 			
 		if (!isPrefsMenu && [[self defaultExternalEditor] isEqual:ed]) {
 			[theMenuItem setKeyEquivalent:@"E"];
-			[theMenuItem setKeyEquivalentModifierMask: NSCommandKeyMask | NSShiftKeyMask];
+			[theMenuItem setKeyEquivalentModifierMask: NSEventModifierFlagCommand | NSEventModifierFlagShift];
 		}
 		//PrefsWindowController maintains default-editor selection by updating on ExternalEditorsChangedNotification
 			

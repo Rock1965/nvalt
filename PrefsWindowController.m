@@ -128,7 +128,7 @@
 
 	if (!centerStyle) {
 		centerStyle = [[NSMutableParagraphStyle alloc] init];
-		[centerStyle setAlignment:NSCenterTextAlignment];
+		[centerStyle setAlignment:NSTextAlignmentCenter];
 	}
 
 	NSFont *font = [prefsController noteBodyFont];

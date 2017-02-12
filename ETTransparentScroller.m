@@ -120,7 +120,7 @@
 
 - (void)drawKnobSlotInRect:(NSRect)slotRect highlight:(BOOL)flag{  
    
-    NSDrawThreePartImage(slotRect, slotTop, slotVerticalFill, slotBottom, YES, NSCompositeSourceOver, slotAlpha, NO);
+    NSDrawThreePartImage(slotRect, slotTop, slotVerticalFill, slotBottom, YES, NSCompositingOperationSourceOver, slotAlpha, NO);
    
 }
 
@@ -128,7 +128,7 @@
 {
 	NSRect knobRect = [self rectForPart:NSScrollerKnob];
 
-	NSDrawThreePartImage(knobRect, knobTop, knobVerticalFill, knobBottom, YES, NSCompositeSourceOver, knobAlpha, NO);
+	NSDrawThreePartImage(knobRect, knobTop, knobVerticalFill, knobBottom, YES, NSCompositingOperationSourceOver, knobAlpha, NO);
    
 }
 //

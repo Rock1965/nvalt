@@ -266,8 +266,8 @@ static NSString *BMNoteUUIDStringKey = @"NoteUUIDString";
 		if (description) {
 			theMenuItem = [[[NSMenuItem alloc] initWithTitle:description action:@selector(restoreBookmark:) 
 											   keyEquivalent:[NSString stringWithFormat:@"%d", (i % 9) + 1]] autorelease];
-			if (i > 8) [theMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask | NSShiftKeyMask];
-			if (i > 17) [theMenuItem setKeyEquivalentModifierMask:NSCommandKeyMask | NSShiftKeyMask | NSControlKeyMask];
+			if (i > 8) [theMenuItem setKeyEquivalentModifierMask:NSEventModifierFlagCommand | NSEventModifierFlagShift];
+			if (i > 17) [theMenuItem setKeyEquivalentModifierMask:NSEventModifierFlagCommand | NSEventModifierFlagShift | NSEventModifierFlagControl];
 			[theMenuItem setRepresentedObject:bookmark];
 			[theMenuItem setTarget:self];
 			[bookmarksMenu addItem:theMenuItem];
@@ -323,7 +323,6 @@ static NSString *BMNoteUUIDStringKey = @"NoteUUIDString";
 		//communicate with revealer here--tell it to search for this string and highlight note
 		isRestoringSearch = YES;
 		
-		//BOOL inBG = ([[window currentEvent] modifierFlags] & NSCommandKeyMask) == 0;
 		[appController bookmarksController:self restoreNoteBookmark:bookmark inBackground:inBG];
 		[self selectBookmarkInTableView:bookmark];
 		

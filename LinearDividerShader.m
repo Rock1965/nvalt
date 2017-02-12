@@ -233,9 +233,8 @@ void ColorBlendFunction(void *info, const CGFloat *in, CGFloat *out) {
 - (void)drawCenteredInRect:(NSRect)aRect fraction:(float)aFraction {
 	NSRect cent = centeredRectInRect(aRect, [self size]);
 	cent = [[NSView focusView] centerScanRect:cent];
-//	[self compositeToPoint:NSMakePoint(cent.origin.x, cent.origin.y + cent.size.height) operation:NSCompositeSourceOver fraction:aFraction];
     
-[self drawInRect:cent fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:aFraction respectFlipped:YES hints:nil];
+[self drawInRect:cent fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:aFraction respectFlipped:YES hints:nil];
 }
 
 @end
