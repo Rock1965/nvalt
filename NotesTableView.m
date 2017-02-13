@@ -63,7 +63,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 		
 		headerView = [[HeaderViewWithMenu alloc] init];
 		[headerView setTableView:self];
-		[headerView setFrame:[[self headerView] frame]];
+		[headerView setFrame:NSMakeRect(0, 0, 17, 17)/*[[self headerView] frame]*/];
 
 		NSArray *columnsToDisplay = [globalPrefs visibleTableColumns];
 		allColumns = [[NSMutableArray alloc] initWithCapacity:4];
