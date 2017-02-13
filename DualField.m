@@ -39,7 +39,7 @@
 		[self setWraps:YES];
 		[self setPlaceholderString:NSLocalizedString(@"Search or Create", @"placeholder text in search/create field")];
 		
-		[self setFocusRingType:NSFocusRingTypeExterior];
+		[self setFocusRingType:NSFocusRingTypeDefault];
 		
 		clearButtonState = snapbackButtonState = BUTTON_HIDDEN;
 		
@@ -182,6 +182,11 @@
 @end
 
 @implementation DualField
+{
+    NSImage *_bgActiveImage;
+    NSImage *_bgInactiveImage;
+}
+
 
 + (Class)cellClass {
 	return [DualFieldCell class];
@@ -202,7 +207,7 @@
     }
 	[self setBordered:NO];
 	[self setBezeled:NO];
-	[self setFocusRingType:NSFocusRingTypeExterior];
+	[self setFocusRingType:NSFocusRingTypeDefault];
 			
 	[myCell setAllowsUndo:NO];
 	[myCell setLineBreakMode:NSLineBreakByCharWrapping];
@@ -211,6 +216,11 @@
 	IBeamCursor = [[NSCursor IBeamCursor] retain];
 	
 	followedLinks = [[NSMutableArray alloc] init];
+
+    _bgActiveImage = [NSImage imageNamed:@"DFActive"];
+    _bgActiveImage.capInsets = NSEdgeInsetsMake(0, 6, 0, 6);
+    _bgInactiveImage = [NSImage imageNamed:@"DFInactive"];
+    _bgInactiveImage.capInsets = _bgActiveImage.capInsets;
 }
 
 - (void)setTrackingRect {
@@ -425,81 +435,24 @@
 }
 
 - (void)drawRect:(NSRect)rect {
-//	[super drawRect:rect];
-	
 	NSWindow *window = [self window];
 	BOOL isActiveWin = [window isMainWindow];
 	
-//	[NSGraphicsContext saveGraphicsState];
-//	[[NSGraphicsContext currentContext] setShouldAntialias:NO];
-
 	NSRect tBounds = [self bounds];
 
-    // bottom highlight
-    [[NSColor colorWithWhite:1 alpha:0.3] setFill];
-    [[NSBezierPath bezierPathWithRoundRectInRect:tBounds radius:4.5] fill];
-
-    // outline and fill
-    NSColor *outlineColor = isActiveWin
-        ? [NSColor colorWithWhite:0.73 alpha:1]
-        : [NSColor colorWithWhite:0.86 alpha:1];
-    NSColor *fillColor = isActiveWin
-        ? [NSColor whiteColor]
-        : [NSColor clearColor];
-    [outlineColor setStroke];
-    [fillColor setFill];
-    NSRect roundRect = NSOffsetRect(NSInsetRect(tBounds, 0.5, 1), 0, -0.5);
-    NSBezierPath *p = [NSBezierPath bezierPathWithRoundRectInRect:roundRect radius:4.5];
-    [p fill];
-    [p stroke];
-
-//	[[NSColor whiteColor] set];
-//	NSRectFill(NSInsetRect(tBounds, 5, 1));
-//
-//	NSImage *leftCap = [NSImage imageNamed: isActiveWin ? @"DFCapLeftRounded" : @"DFCapLeftRoundedInactive"];
-//	NSRect leftImageRect = NSMakeRect(0, 0, [leftCap size].width, [leftCap size].height);
-//	[leftCap drawInRect:leftImageRect fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0 respectFlipped:YES hints:nil];
-//	
-//	NSImage *rightCap = [NSImage imageNamed: isActiveWin ? @"DFCapRight" : @"DFCapRightInactive"];
-//	NSRect rightImageRect = NSMakeRect(tBounds.size.width - [rightCap size].width, 0, [rightCap size].width, [rightCap size].height);
-//	[rightCap drawInRect:rightImageRect fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0 respectFlipped:YES hints:nil];
-//
-//	[[NSColor colorWithDeviceWhite: isActiveWin ? 0.31f : 0.62f alpha:1.0f] set];
-//	[NSBezierPath strokeLineFromPoint:NSMakePoint(tBounds.origin.x + [leftCap size].width, tBounds.origin.y + .5) toPoint:NSMakePoint(tBounds.size.width - [rightCap size].width, tBounds.origin.y + .5)];
-//	[[NSColor colorWithDeviceWhite: isActiveWin ? 0.882f : 0.886f alpha:1.0f] set];
-//	[NSBezierPath strokeLineFromPoint:NSMakePoint(tBounds.origin.x + [leftCap size].width, tBounds.origin.y + 1.5) toPoint:NSMakePoint(tBounds.size.width - [rightCap size].width, tBounds.origin.y + 1.5)];
-//	
-//	
-//	[[NSColor colorWithDeviceWhite: isActiveWin ? 0.447f : 0.627f alpha:1.0f] set];
-//	[NSBezierPath strokeLineFromPoint:NSMakePoint(tBounds.origin.x + [leftCap size].width, tBounds.origin.y + tBounds.size.height - 1.5) toPoint:NSMakePoint(tBounds.size.width - [rightCap size].width, tBounds.origin.y + tBounds.size.height - 1.5)];
-//	[[NSColor colorWithDeviceWhite: 1.0 alpha:0.39f] set];
-//	[NSBezierPath strokeLineFromPoint:NSMakePoint(tBounds.origin.x + [leftCap size].width, tBounds.origin.y + tBounds.size.height ) toPoint:NSMakePoint(tBounds.size.width - [rightCap size].width, tBounds.origin.y + tBounds.size.height )];
+    if (isActiveWin) {
+        [_bgActiveImage drawInRect:tBounds];
+    }
+    else {
+        [_bgInactiveImage drawInRect:tBounds];
+    }
 
 	NSImage *docIcon = [NSImage imageNamed: showsDocumentIcon ? @"Pencil" : @"Search" ];
-//	[docIcon setFlipped:YES];
 	NSRect docImageRect = NSMakeRect(BORDER_LEFT_OFFSET, BORDER_TOP_OFFSET, [docIcon size].width, [docIcon size].height);
 	[docIcon drawInRect:docImageRect fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0 respectFlipped:YES hints:nil];
 	
-//	[NSGraphicsContext restoreGraphicsState];
-
 	//drawWithFrame: would make sense to override, but this works, too
 	[[self cell] drawWithFrame:NSMakeRect(0, 0, NSWidth(tBounds), NSHeight(tBounds)) inView:self];
-	
-	if (IsLeopardOrLater&&!IsYosemiteOrLater) {
-		//ALERT: TEMPORARY WORK-AROUND FOR TIGER FOCUS RING BUILDUP: DO NOT DRAW FOCUS RING ON TIGER
-		if ([self currentEditor] && isActiveWin) {
-			//draw focus ring
-			[NSGraphicsContext saveGraphicsState];
-			NSSetFocusRingStyle(NSFocusRingOnly);
-			NSRect focusRect = NSInsetRect(tBounds, 0.0f, 0.5f);
-			focusRect.origin.y -= 0.5f;
-			//drawing could be sped up by a measurable amount if this were cached in a (partially transparent) image
-			[[NSBezierPath bezierPathWithRoundRectInRect:focusRect radius:1.0f] fill];
-			[NSGraphicsContext restoreGraphicsState];
-		}
-	}	
-	
-	
 }
 
 //elasticwork
