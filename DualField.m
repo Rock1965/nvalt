@@ -476,4 +476,14 @@
 	[[NSApp delegate] flagsChanged:theEvent];
 }
 
+- (void)drawFocusRingMask {
+    [[NSBezierPath bezierPathWithRoundRectInRect:[self focusRingMaskBounds] radius:5] fill];
+}
+
+- (NSRect)focusRingMaskBounds {
+    NSRect rect = self.bounds;
+    rect.size.height -= 1;
+    return rect;
+}
+
 @end
