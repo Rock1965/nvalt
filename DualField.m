@@ -72,7 +72,6 @@
 	NSRect part, clear;
 	
 	NSDivideRect(rect, &clear, &part, CLEAR_BUTTON_IMG_DIM + BORDER_LEFT_OFFSET + 4.0, NSMaxXEdge);
-	clear.origin.y -= 0.5;
 	return clear;
 }
 
@@ -477,13 +476,11 @@
 }
 
 - (void)drawFocusRingMask {
-    [[NSBezierPath bezierPathWithRoundRectInRect:[self focusRingMaskBounds] radius:5] fill];
+    [[NSBezierPath bezierPathWithRoundRectInRect:[self focusRingMaskBounds] radius:4] fill];
 }
 
 - (NSRect)focusRingMaskBounds {
-    NSRect rect = self.bounds;
-    rect.size.height -= 1;
-    return rect;
+    return NSInsetRect([self bounds], 1, 1);
 }
 
 @end

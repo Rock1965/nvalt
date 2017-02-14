@@ -762,7 +762,7 @@ CA
         </customView>
         <customObject id="452" userLabel="Font Manager" customClass="NSFontManager"/>
         <customView misplaced="YES" id="1066" userLabel="fieldcustomview">
-            <rect key="frame" x="0.0" y="0.0" width="381" height="25"/>
+            <rect key="frame" x="0.0" y="0.0" width="381" height="24"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
             <subviews>
                 <tokenField verticalHuggingPriority="750" id="1270" userLabel="Word Count Token" customClass="WordCountToken">
@@ -778,7 +778,7 @@ CA
                     </connections>
                 </tokenField>
                 <textField verticalHuggingPriority="750" misplaced="YES" id="1067" customClass="DualField">
-                    <rect key="frame" x="0.0" y="0.0" width="381" height="25"/>
+                    <rect key="frame" x="0.0" y="0.0" width="381" height="24"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1103">
                         <font key="font" metaFont="system"/>
@@ -796,7 +796,7 @@ CA
             <connections>
                 <outlet property="nextKeyView" destination="1067" id="1306"/>
             </connections>
-            <point key="canvasLocation" x="138.5" y="169.5"/>
+            <point key="canvasLocation" x="138.5" y="169"/>
         </customView>
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="1079" userLabel="quit waiting" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES"/>
