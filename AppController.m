@@ -268,21 +268,24 @@ BOOL splitViewAwoke;
 		//NSLog(@"all (hopefully relevant) views awakend!");
 		[self _configureDividerForCurrentLayout];
 		[splitView restoreState:YES];
-		if ([notesSubview dimension]<200.0) {
-			if ([splitView isVertical]) {   ///vertical means "Horiz layout"/notes list is to the left of the note body
-				if (([splitView frame].size.width < 600.0) && ([splitView frame].size.width - 400 > [notesSubview dimension])) {
-					[notesSubview setDimension:[splitView frame].size.width-400.0];
-				}else if ([splitView frame].size.width >= 600.0) {
-					[notesSubview setDimension:200.0];
-				}
-			}else{
-				if (([splitView frame].size.height < 600.0) && ([splitView frame].size.height - 400 > [notesSubview dimension])) {
-					[notesSubview setDimension:[splitView frame].size.height-450.0];
-				}else if ([splitView frame].size.height >= 600.0){
-					[notesSubview setDimension:150.0];
-				}
-			}
-		}
+
+// WHY RESIZE THE SUBVIEWS?
+//
+//		if ([notesSubview dimension]<200.0) {
+//			if ([splitView isVertical]) {   ///vertical means "Horiz layout"/notes list is to the left of the note body
+//				if (([splitView frame].size.width < 600.0) && ([splitView frame].size.width - 400 > [notesSubview dimension])) {
+//					[notesSubview setDimension:[splitView frame].size.width-400.0];
+//				}else if ([splitView frame].size.width >= 600.0) {
+//					[notesSubview setDimension:200.0];
+//				}
+//			}else{
+//				if (([splitView frame].size.height < 600.0) && ([splitView frame].size.height - 400 > [notesSubview dimension])) {
+//					[notesSubview setDimension:[splitView frame].size.height-450.0];
+//				}else if ([splitView frame].size.height >= 600.0){
+//					[notesSubview setDimension:150.0];
+//				}
+//			}
+//		}
 		[splitView adjustSubviews];
 		[splitSubview addSubview:editorStatusView positioned:NSWindowAbove relativeTo:splitSubview];
 		[editorStatusView setFrame:[textScrollView frame]];
