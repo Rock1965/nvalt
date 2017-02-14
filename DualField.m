@@ -19,7 +19,7 @@
 #import "AppController.h"
 #import "BookmarksController.h"
 
-#define BORDER_TOP_OFFSET 3.0
+#define BORDER_TOP_OFFSET 4.0
 #define BORDER_LEFT_OFFSET 3.0
 #define MAX_STATE_IMG_DIM 16.0
 #define CLEAR_BUTTON_IMG_DIM 16.0

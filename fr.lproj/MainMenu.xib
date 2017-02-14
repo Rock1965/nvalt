@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -751,24 +752,10 @@ CA
             </connections>
         </customView>
         <customObject id="452" userLabel="Font Manager" customClass="NSFontManager"/>
-        <customView id="1066" userLabel="fieldcustomview">
-            <rect key="frame" x="0.0" y="0.0" width="381" height="24"/>
+        <customView misplaced="YES" id="1066" userLabel="fieldcustomview">
+            <rect key="frame" x="0.0" y="0.0" width="381" height="25"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" id="1067" customClass="DualField">
-                    <rect key="frame" x="0.0" y="1" width="381" height="23"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1089">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <action selector="fieldAction:" target="213" id="1071"/>
-                        <outlet property="delegate" destination="213" id="1068"/>
-                        <outlet property="notesTable" destination="1224" id="1244"/>
-                    </connections>
-                </textField>
                 <tokenField verticalHuggingPriority="750" id="1286" userLabel="Word Count Token" customClass="WordCountToken">
                     <rect key="frame" x="206" y="6" width="145" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
@@ -781,7 +768,22 @@ CA
                         <outlet property="delegate" destination="213" id="1288"/>
                     </connections>
                 </tokenField>
+                <textField verticalHuggingPriority="750" misplaced="YES" id="1067" customClass="DualField">
+                    <rect key="frame" x="0.0" y="0.0" width="381" height="25"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="1089">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <action selector="fieldAction:" target="213" id="1071"/>
+                        <outlet property="delegate" destination="213" id="1068"/>
+                        <outlet property="notesTable" destination="1224" id="1244"/>
+                    </connections>
+                </textField>
             </subviews>
+            <point key="canvasLocation" x="138.5" y="169.5"/>
         </customView>
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="1079" userLabel="quit waiting" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES"/>
@@ -1054,7 +1056,7 @@ CA
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <clipView key="contentView" drawsBackground="NO" id="NQx-Wb-yiM">
                 <rect key="frame" x="0.0" y="0.0" width="399" height="304"/>
-                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textView drawsBackground="NO" importsGraphics="NO" richText="NO" usesFontPanel="YES" findStyle="panel" allowsUndo="YES" spellingCorrection="YES" id="1261" customClass="LinkingEditor">
                         <rect key="frame" x="0.0" y="0.0" width="399" height="304"/>
