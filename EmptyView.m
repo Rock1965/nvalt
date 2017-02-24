@@ -11,7 +11,7 @@
 
 
 #import "EmptyView.h"
-//#import "AppController.h"
+#import "AppController.h"
 
 @implementation EmptyView
 
@@ -34,7 +34,7 @@
 }
 
 - (void)mouseDown:(NSEvent*)anEvent {
-	[[NSApp delegate] performSelector:@selector(bringFocusToControlField:) withObject:nil];
+	[(AppController *)[NSApp delegate] performSelector:@selector(bringFocusToControlField:) withObject:nil];
 }
 
 - (void)setLabelStatus:(NSInteger)notesNumber {
