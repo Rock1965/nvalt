@@ -741,12 +741,12 @@ CA
                 <outlet property="wordCounter" destination="1270" id="1272"/>
             </connections>
         </customObject>
-        <customView id="341" userLabel="editorStatus" customClass="EmptyView">
-            <rect key="frame" x="0.0" y="0.0" width="147" height="102"/>
+        <customView misplaced="YES" id="341" userLabel="editorStatus" customClass="EmptyView">
+            <rect key="frame" x="0.0" y="0.0" width="162" height="132"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" id="342">
-                    <rect key="frame" x="0.0" y="28" width="146" height="46"/>
+                <textField verticalHuggingPriority="750" misplaced="YES" id="342">
+                    <rect key="frame" x="-2" y="54" width="166" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="No Note Selected" id="1102">
                         <font key="font" size="18" name="Helvetica"/>
@@ -759,6 +759,7 @@ CA
                 <outlet property="labelText" destination="342" id="350"/>
                 <outlet property="nextKeyView" destination="1067" id="1076"/>
             </connections>
+            <point key="canvasLocation" x="-294" y="331"/>
         </customView>
         <customObject id="452" userLabel="Font Manager" customClass="NSFontManager"/>
         <customView misplaced="YES" id="1066" userLabel="fieldcustomview">
