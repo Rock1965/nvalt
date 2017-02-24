@@ -839,7 +839,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 #define UPCHAR(x) ((x) == NSUpArrowFunctionKey || (x) == NSUpTextMovement)
 
 - (void)keyDown:(NSEvent*)theEvent {
-    
+
 //    [[NSApp delegate] resetModTimers];
 //    [[NSNotificationCenter defaultCenter] postNotificationName:@"ModTimersShouldReset" object:nil];
 	unichar keyChar = [theEvent firstCharacter];

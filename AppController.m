@@ -1226,8 +1226,8 @@ terminateApp:
 		[field setStringValue:@""];
 		typedStringIsCached = NO;
 		
-		[notesTableView deselectAll:sender];//thiss
 		[notationController filterNotesFromString:@""];
+        [notesTableView deselectAll:sender];//thiss
 		//was here
         [self setDualFieldIsVisible:YES];
         //		[self _expandToolbar];
