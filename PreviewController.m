@@ -159,7 +159,7 @@
 {
     cssString = [[[self class] css] retain];
     htmlString = [[[self class] html] retain];
-    lastNote = [[NSApp delegate] selectedNoteObject];
+    lastNote = [(AppController *)[NSApp delegate] selectedNoteObject];
     [sourceView setTextContainerInset:NSMakeSize(10.0,12.0)];
     NSScrollView *scrlView=[sourceView enclosingScrollView];
     if (!IsLionOrLater) {

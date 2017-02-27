@@ -142,7 +142,7 @@ static const NSStringEncoding AllowedEncodings[] = {
 		
 		//setup panel for given note
 		if ([self tryToUpdateTextForEncoding:currentEncoding]) {
-			[NSApp beginSheet:window modalForWindow:[[NSApp delegate] window] modalDelegate:self 
+			[NSApp beginSheet:window modalForWindow:[[NSApp delegate] window] modalDelegate:self
 			   didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:) contextInfo:NULL];
 		} else {
 			//this shouldn't happen

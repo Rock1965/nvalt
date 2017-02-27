@@ -204,11 +204,11 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 	if ([sender draggingSource] == self)
 		return NO;
 	
-	return [[NSApp delegate] addNotesFromPasteboard:[sender draggingPasteboard]];
+	return [(AppController *)[NSApp delegate] addNotesFromPasteboard:[sender draggingPasteboard]];
 }
 
 - (void)paste:(id)sender {
-	[[NSApp delegate] addNotesFromPasteboard:[NSPasteboard generalPasteboard]];
+	[(AppController *)[NSApp delegate] addNotesFromPasteboard:[NSPasteboard generalPasteboard]];
 }
 
 - (float)tableFontHeight {
@@ -856,7 +856,7 @@ static void _CopyItemWithSelectorFromMenu(NSMenu *destMenu, NSMenu *sourceMenu, 
 			return;
 		}
     } else if (keyChar == NSDeleteCharacter || keyChar == NSDeleteFunctionKey || keyChar == NSDeleteCharFunctionKey) {
-		[[NSApp delegate] deleteNote:self];
+		[(AppController *)[NSApp delegate] deleteNote:self];
 		return;
 	} else if (keyChar == NSTabCharacter) {
 		[[self window] selectNextKeyView:self];
@@ -1206,7 +1206,7 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 
 - (void)cancelOperation:(id)sender {
 	[self abortEditing];
-	[[NSApp delegate] cancelOperation:sender];
+	[(AppController *)[NSApp delegate] cancelOperation:sender];
 }
 
 - (void)textDidChange:(NSNotification *)aNotification {
@@ -1322,7 +1322,7 @@ enum { kNext_Tag = 'j', kPrev_Tag = 'k' };
 }
 
 - (void)flagsChanged:(NSEvent *)theEvent{
-	[[NSApp delegate] flagsChanged:theEvent];
+	[(AppController *)[NSApp delegate] flagsChanged:theEvent];
 }
 
 - (BOOL)needsGridLines{
