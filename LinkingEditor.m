@@ -57,6 +57,9 @@ static long (*GetGetScriptManagerVariablePointer())(short);
 
 
 @implementation LinkingEditor
+{
+    NSDateFormatter *_dateFormatter; // for inserting date|time stamps
+}
 
 @synthesize beforeString;
 @synthesize afterString;
@@ -1618,6 +1621,17 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
     theMenuItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Insert Link",@"insert link menu item title") action:@selector(insertLink:) keyEquivalent:@""] autorelease];
 	[theMenuItem setTarget:self];
 	[theMenu addItem:theMenuItem];
+
+    theMenuItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Insert Datestamp",@"insert datestamp menu item title") action:@selector(insertDatestamp:) keyEquivalent:@""] autorelease];
+    [theMenuItem setTarget:self];
+    [theMenuItem setTag:0];
+    [theMenu addItem:theMenuItem];
+
+    theMenuItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Insert Timestamp",@"insert timestamp menu item title") action:@selector(insertDatestamp:) keyEquivalent:@""] autorelease];
+    [theMenuItem setTarget:self];
+    [theMenuItem setTag:1];
+    [theMenu addItem:theMenuItem];
+
     theMenuItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Use Selection for Find",@"find using selection menu item title") action:@selector(performFindPanelAction:) keyEquivalent:@""] autorelease];
     [theMenuItem setTag:7];
 	[theMenuItem setTarget:self];
@@ -1683,9 +1697,21 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 		theMenuItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Insert Link",@"insert link menu item title") action:@selector(insertLink:) keyEquivalent:@"L"] autorelease];
         [theMenuItem setTarget:self];
         [editMenu addItem:theMenuItem];
+
+        theMenuItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Insert Datestamp",@"insert datestamp menu item title") action:@selector(insertDatestamp:) keyEquivalent:@"D"] autorelease];
+        [theMenuItem setKeyEquivalentModifierMask:NSEventModifierFlagOption|NSEventModifierFlagCommand];
+        [theMenuItem setTarget:self];
+        [theMenuItem setTag:0];
+        [editMenu addItem:theMenuItem];
+
+        theMenuItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Insert Timestamp",@"insert timestamp menu item title") action:@selector(insertDatestamp:) keyEquivalent:@"T"] autorelease];
+        [theMenuItem setKeyEquivalentModifierMask:NSEventModifierFlagOption|NSEventModifierFlagCommand];
+        [theMenuItem setTarget:self];
+        [theMenuItem setTag:1];
+        [editMenu addItem:theMenuItem];
         
 		[editMenu addItem:[NSMenuItem separatorItem]];
-        
+
 #if PASSWORD_SUGGESTIONS
         theMenuItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"New Password...", "new password command in the edit menu")
 												 action:@selector(showGeneratedPasswords:) keyEquivalent:@"\\"];
@@ -1893,6 +1919,14 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
         }
     }
     [super insertText:string];
+}
+
+- (IBAction)insertDatestamp:(id)sender
+{
+    if (!_dateFormatter) _dateFormatter = [NSDateFormatter new];
+    _dateFormatter.dateFormat = [sender tag] == 0 ? @"yyyy-MM-dd" : @"yyyy-MM-dd HH:mm";
+    NSString *stamp = [_dateFormatter stringFromDate:[[NSDate new] autorelease]];
+    [super insertText:stamp replacementRange:self.selectedRange];
 }
 
 - (IBAction)insertLink:(id)sender{
