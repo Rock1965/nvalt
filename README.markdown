@@ -1,8 +1,15 @@
+These are my tweaks of the amazing Notational Velocity/nvALT.
+Requires macOS 10.12+
+
+- Unified title bar and toolbar
+- Nicer menu bar icon
+- Tamed some unruly scrollview and splitview behavior
+- Minor appearance changes here and there
+- Commands to insert date and time stamps
+
 # nvALT 2
 
 A collaboration between Brett Terpstra (ttscoff) and David Halter (ElasticThreads) based on [DivineDominion's](github.com/divineDominion/nv) fork. nvALT adds a few features we'd been looking for (and let me get some coding practice).
-
-![Screenshot](http://img.skitch.com/20110520-k5y4i6i3p8ciftq2dbs7rx64e7.jpg)
 
 ## About nvALT
 
