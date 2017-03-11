@@ -1694,6 +1694,8 @@ static long (*GetGetScriptManagerVariablePointer())(short) {
 //			[editMenu addItem:theMenuItem];
 //			[theMenuItem release];
 //		}
+        [editMenu addItem:[NSMenuItem separatorItem]];
+
 		theMenuItem = [[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Insert Link",@"insert link menu item title") action:@selector(insertLink:) keyEquivalent:@"L"] autorelease];
         [theMenuItem setTarget:self];
         [editMenu addItem:theMenuItem];
